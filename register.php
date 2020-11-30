@@ -51,7 +51,7 @@ if (!empty($username) || !empty($password)  || !empty($confirm_password)  || !em
     die('connection Error(' . mysqli_connect_errno() . ')' . mysqli_connect_error());
   } else {
     $SELECT = "SELECT Email from register Where Email = ? Limit 1";
-    $INSERT = "INSERT into register ( username , password, confirm_password , Local_Address ,Local_City , Local_State ,Local_Zip ,Permeant_Address ,Permeant_City ,Permeant_State ,Permeant_Zip  , Enrollmeant_No ,DTE_Id_No , Admission_Category , Admission_Centre ,Domicile_State , Date_Of_Birth , Aadhar_Card_No , Father_PAN_Card_No ,Cast ,Religion ,Gender , Place_Of_Birth , Student_Name , Student_Mobile_No , Student_Email_Address , Student_Father_Name , Father_Mobile_No ,Father_Email_Address , Student_Mother_Name , Mother_Mobile_No , Mother_Email_Address ,Student_Local_Guardian_Name ,Guardian_Mobile_No ,Guardian_Email_Address ,Select_Branch )values( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+    $INSERT = "INSERT into register ( username , password, confirm_password , Local_Address ,Local_City , Local_State ,Local_Zip ,Permeant_Address ,Permeant_City ,Permeant_State ,Permeant_Zip  , Enrollmeant_No ,DTE_Id_No , Admission_Category , Admission_Centre ,Domicile_State , Date_Of_Birth , Aadhar_Card_No , Father_PAN_Card_No ,Cast ,Religion ,Gender , Place_Of_Birth , Student_Name , Student_Mobile_No , Email , Student_Father_Name , Father_Mobile_No ,Father_Email_Address , Student_Mother_Name , Mother_Mobile_No , Mother_Email_Address ,Student_Local_Guardian_Name ,Guardian_Mobile_No ,Guardian_Email_Address ,Select_Branch )values( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
     $stmt = $conn->prepare($SELECT);
     $stmt->bind_param("s", $Email);
