@@ -36,10 +36,10 @@ $Student_Local_Guardian_Name = ['Student_Local_Guardian_Name'];
 $Guardian_Mobile_No = ['Guardian_Mobile_No'];
 $Guardian_Email_Address = ['Guardian_Email_Address'];
 $Select_Branch = ['Select_Branch'];
-$Upload_your_Photo = ['Upload_your_Photo'];
 
 
-if (!empty($username) || !empty($password)  || !empty($confirm_password)  || !empty($Local_Address)  || !empty($Local_City)  || !empty($Local_State)  || !empty($Local_Zip)  || !empty($Permeant_Address)  || !empty($Permeant_City)  || !empty($Permeant_State)  || !empty($Permeant_Zip)  || !empty($Enrollmeant_No)  || !empty($DTE_Id_No)  || !empty($Admission_Category)  || !empty($Admission_Centre)  || !empty($Domicile_State)  || !empty($Date_Of_Birth)  || !empty($Aadhar_Card_No)  || !empty($Father_PAN_Card_No)  || !empty($Cast)  || !empty($Religion)  || !empty($Gender)  || !empty($Place_Of_Birth)  || !empty($Student_Name)  || !empty($Student_Mobile_No)  || !empty($Student_Email_Address)  || !empty($Student_Father_Name)  || !empty($Father_Mobile_No)  || !empty($Father_Email_Address)  || !empty($Student_Mother_Name)  || !empty($Mother_Mobile_No)  || !empty($Mother_Email_Address)  || !empty($Student_Local_Guardian_Name)  || !empty($Guardian_Mobile_No)  || !empty($Guardian_Email_Address)  || !empty($Select_Branch))
+
+if (!empty($username) || !empty($password)  || !empty($confirm_password)  || !empty($Local_Address)  || !empty($Local_City)  || !empty($Local_State)  || !empty($Local_Zip)  || !empty($Permeant_Address)  || !empty($Permeant_City)  || !empty($Permeant_State)  || !empty($Permeant_Zip)  || !empty($Enrollmeant_No)  || !empty($DTE_Id_No)  || !empty($Admission_Category)  || !empty($Admission_Centre)  || !empty($Domicile_State)  || !empty($Date_Of_Birth)  || !empty($Aadhar_Card_No)  || !empty($Father_PAN_Card_No)  || !empty($Cast)  || !empty($Religion)  || !empty($Gender)  || !empty($Place_Of_Birth)  || !empty($Student_Name)  || !empty($Student_Mobile_No)  || !empty($Email)  || !empty($Student_Father_Name)  || !empty($Father_Mobile_No)  || !empty($Father_Email_Address)  || !empty($Student_Mother_Name)  || !empty($Mother_Mobile_No)  || !empty($Mother_Email_Address)  || !empty($Student_Local_Guardian_Name)  || !empty($Guardian_Mobile_No)  || !empty($Guardian_Email_Address)  || !empty($Select_Branch))
  {
   $host = "localhost";
   $dbUsername = "root";
@@ -63,7 +63,7 @@ if (!empty($username) || !empty($password)  || !empty($confirm_password)  || !em
     if ($rnum == 0) {
       $stmt->close();
       $stmt = $conn->prepare($INSERT);
-      $stmt->bind_param("ssssssisssiissssiissssssississississ", $username, $password, $confirm_password, $Local_Address, $Local_City, $Local_State, $Local_Zip, $Permeant_Address, $Permeant_City, $Permeant_State, $Permeant_Zip, $Enrollmeant_No, $DTE_Id_No, $Admission_Category, $Admission_Centre, $Domicile_State, $Date_Of_Birth, $Aadhar_Card_No, $Father_PAN_Card_No, $Cast, $Religion, $Gender, $Place_Of_Birth, $Student_Name, $Student_Mobile_No, $Student_Email_Address, $Student_Father_Name, $Father_Mobile_No, $Father_Email_Address, $Student_Mother_Name, $Mother_Mobile_No, $Mother_Email_Address, $Student_Local_Guardian_Name, $Guardian_Mobile_No, $Guardian_Email_Address, $Select_Branch);
+      $stmt->bind_param("ssssssisssiissssiissssssississississ", $username, $password, $confirm_password, $Local_Address, $Local_City, $Local_State, $Local_Zip, $Permeant_Address, $Permeant_City, $Permeant_State, $Permeant_Zip, $Enrollmeant_No, $DTE_Id_No, $Admission_Category, $Admission_Centre, $Domicile_State, $Date_Of_Birth, $Aadhar_Card_No, $Father_PAN_Card_No, $Cast, $Religion, $Gender, $Place_Of_Birth, $Student_Name, $Student_Mobile_No, $Email, $Student_Father_Name, $Father_Mobile_No, $Father_Email_Address, $Student_Mother_Name, $Mother_Mobile_No, $Mother_Email_Address, $Student_Local_Guardian_Name, $Guardian_Mobile_No, $Guardian_Email_Address, $Select_Branch);
       $stmt->execute();
       echo "Sucessful Registeration";
     } else {
