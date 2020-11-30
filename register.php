@@ -3,7 +3,74 @@ require_once "config.php";
 
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
+$Local_Address = ['Local_Address'];
+$Local_City = ['Local_City'];
+$Local_State = ['Local_State'];
+$Local_Zip = ['Local_Zip'];
+$Permeant_Address = ['Permeant_Address'];
+$Permeant_City = ['Permeant_City'];
+$Permeant_State = ['Permeant_State'];
+$Permeant_Zip = ['Permeant_Zip'];
+$Enrollmeant_No = ['Enrollmeant_No'];
+$DTE_Id_No = ['DTE_Id_No'];
+$Admission_Category = ['Admission_Category'];
+$Admission_Centre = ['Admission_Centre'];
+$Domicile_State = ['Domicile_State'];
+$Date_Of_Birth = ['Date_Of_Birth'];
+$Aadhar_Card_No = ['Aadhar_Card_No'];
+$Father_PAN_Card_No = ['Father_PAN_Card_No'];
+$Cast = ['Cast'];
+$Religion =['Religion'];
+$Gender = ['Gender'];
+$Place_Of_Birth = ['Place_Of_Birth'];
+$Student_Name =['Student_Name'];
+$Student_Mobile_No = ['Student_Mobile_No'];
+$Email = ['Email'];
+$Student_Father_Name = ['Student_Father_Name'];
+$Father_Mobile_No = ['Father_Mobile_No'];
+$Father_Email_Address = ['Father_Email_Address'];
+$Student_Mother_Name = ['Student_Mother_Name'];
+$Mother_Mobile_No = ['Mother_Mobile_No'];
+$Mother_Email_Address = ['Mother_Email_Address'];
+$Student_Local_Guardian_Name = ['Student_Local_Guardian_Name'];
+$Guardian_Mobile_No = ['Guardian_Mobile_No'];
+$Guardian_Email_Address = ['Guardian_Email_Address'];
+$Select_Branch = ['Select_Branch'];
+$Upload_your_Photo = ['Upload_your_Photo'];
 
+
+if (!empty($username) || !empty($password)  || !empty($confirm_password)  || !empty($Local_Address)  || !empty($Local_City)  || !empty($Local_State)  || !empty($Local_Zip)  || !empty($Permeant_Address)  || !empty($Permeant_City)  || !empty($Permeant_State)  || !empty($Permeant_Zip)  || !empty($Enrollmeant_No)  || !empty($DTE_Id_No)  || !empty($Admission_Category)  || !empty($Admission_Centre)  || !empty($Domicile_State)  || !empty($Date_Of_Birth)  || !empty($Aadhar_Card_No)  || !empty($Father_PAN_Card_No)  || !empty($Cast)  || !empty($Religion)  || !empty($Gender)  || !empty($Place_Of_Birth)  || !empty($Student_Name)  || !empty($Student_Mobile_No)  || !empty($Student_Email_Address)  || !empty($Student_Father_Name)  || !empty($Father_Mobile_No)  || !empty($Father_Email_Address)  || !empty($Student_Mother_Name)  || !empty($Mother_Mobile_No)  || !empty($Mother_Email_Address)  || !empty($Student_Local_Guardian_Name)  || !empty($Guardian_Mobile_No)  || !empty($Guardian_Email_Address)  || !empty($Select_Branch))
+ {
+  $host = "localhost";
+  $dbUsername = "root";
+  $dbPassword = "";
+  $dbname = "login";
+
+  $conn = mysqli_connect($host, $dbUsername, $dbPassword, $dbname);
+  if (mysqli_connect_error()) {
+    die('connection Error(' . mysqli_connect_errno() . ')' . mysqli_connect_error());
+  } else {
+    $SELECT = "SELECT Email from register Where Email = ? Limit 1";
+    $INSERT = "INSERT into register ( username , password, confirm_password , Local_Address ,Local_City , Local_State ,Local_Zip ,Permeant_Address ,Permeant_City ,Permeant_State ,Permeant_Zip  , Enrollmeant_No ,DTE_Id_No , Admission_Category , Admission_Centre ,Domicile_State , Date_Of_Birth , Aadhar_Card_No , Father_PAN_Card_No ,Cast ,Religion ,Gender , Place_Of_Birth , Student_Name , Student_Mobile_No , Student_Email_Address , Student_Father_Name , Father_Mobile_No ,Father_Email_Address , Student_Mother_Name , Mother_Mobile_No , Mother_Email_Address ,Student_Local_Guardian_Name ,Guardian_Mobile_No ,Guardian_Email_Address ,Select_Branch )values( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+
+    $stmt = $conn->prepare($SELECT);
+    $stmt->bind_param("s", $Email);
+    $stmt->execute();
+    $stmt->bind_result($Email);
+    $stmt->store_result();
+    $rnum = $stmt->num_rows;
+
+    if ($rnum == 0) {
+      $stmt->close();
+      $stmt = $conn->prepare($INSERT);
+      $stmt->bind_param("ssssssisssiissssiissssssississississ", $username, $password, $confirm_password, $Local_Address, $Local_City, $Local_State, $Local_Zip, $Permeant_Address, $Permeant_City, $Permeant_State, $Permeant_Zip, $Enrollmeant_No, $DTE_Id_No, $Admission_Category, $Admission_Centre, $Domicile_State, $Date_Of_Birth, $Aadhar_Card_No, $Father_PAN_Card_No, $Cast, $Religion, $Gender, $Place_Of_Birth, $Student_Name, $Student_Mobile_No, $Student_Email_Address, $Student_Father_Name, $Father_Mobile_No, $Father_Email_Address, $Student_Mother_Name, $Mother_Mobile_No, $Mother_Email_Address, $Student_Local_Guardian_Name, $Guardian_Mobile_No, $Guardian_Email_Address, $Select_Branch);
+      $stmt->execute();
+      echo "Sucessful Registeration";
+    } else {
+      echo "someone already register using this email";
+    }
+  }
+}
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   // Check if username is empty
@@ -144,118 +211,118 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Username</label>
-            <input type="text" class="form-control" name="username" id="inputEmail4" placeholder="Email">
+            <input type="text" class="form-control" name="username" required id="inputEmail4" placeholder="Email">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password">
+            <input type="password" class="form-control" name="password" required id="inputPassword4" placeholder="Password">
           </div>
         </div>
         <div class="form-group">
           <label for="inputPassword4">Confirm Password</label>
-          <input type="password" class="form-control" name="confirm_password" id="inputPassword" placeholder="Confirm Password">
+          <input type="password" class="form-control" name="confirm_password" required id="inputPassword" placeholder="Confirm Password">
         </div>
 
 
         <div class="form-group">
           <label for="inputLocal Address">Local Address </label>
-          <input type="text" class="form-control" id="inputLocal Address" placeholder="Local Address">
+          <input type="text" class="form-control" name="Local_Address" required id="inputLocal Address" placeholder="Local Address">
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputLocal City">Local City</label>
-            <input type="text" class="form-control" id="inputLocalCity">
+            <input type="text" class="form-control" name="Local_City" required id="inputLocalCity">
           </div>
           <div class="form-group col-md-4">
             <label for="inputLocal State">Local State</label>
-            <select id="inputLocal State" class="form-control">
+            <select id="inputLocal State" class="form-control" name="Local_State" required>
               <option selected>Select</option>
               <option>Maharastra</option>
             </select>
           </div>
           <div class="form-group col-md-2">
             <label for="inputLocal Zip">Local Zip</label>
-            <input type="text" class="form-control" id="inputLocal Zip">
+            <input type="text" class="form-control" id="inputLocal Zip" name="Local_Zip" required>
           </div>
 
         </div>
         <div class="form-group">
-          <label for="inputPermeant  Address">Permeant  Address </label>
-          <input type="text" class="form-control" id="inputPermeant  Address" placeholder="Permeant  Address">
+          <label for="inputPermeant  Address">Permeant Address </label>
+          <input type="text" class="form-control" id="inputPermeant  Address" placeholder="Permeant  Address" name="Permeant_Address" required>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="inputPermeant  City">Permeant  City</label>
-            <input type="text" class="form-control" id="inputPermeant  City">
+            <label for="inputPermeant  City">Permeant City</label>
+            <input type="text" class="form-control" id="inputPermeant  City" name="Permeant_City" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputPermeant  State">Permeant  State</label>
-            <select id="inputPermeant  State" class="form-control">
+            <label for="inputPermeant  State">Permeant State</label>
+            <select id="inputPermeant  State" class="form-control" name="Permeant_State" required>
               <option selected>Select</option>
               <option>Maharastra</option>
             </select>
           </div>
           <div class="form-group col-md-2">
-            <label for="inputPermeant  Zip">Permeant  Zip</label>
-            <input type="text" class="form-control" id="inputPermeant  Zip">
+            <label for="inputPermeant  Zip">Permeant Zip</label>
+            <input type="text" class="form-control" id="inputPermeant  Zip" name="Permeant_Zip" required>
           </div>
 
 
           <div class="form-group col-md-4">
             <label for="inputEnrollment No">Enrollment No. </label>
-            <input type="text" class="form-control" id="inputEnrollment No" placeholder="Enter your Enrollment No">
+            <input type="text" class="form-control" id="inputEnrollment No" placeholder="Enter your Enrollment No" name="Enrollmeant_No" required>
           </div>
 
 
           <div class="form-group col-md-4">
             <label for="inputDTE Id No">DTE Id No. </label>
-            <input type="text" class="form-control" id="inputDTE Id No" placeholder="Enter your DTE Id No">
+            <input type="text" class="form-control" id="inputDTE Id No" placeholder="Enter your DTE Id No" name="DTE_Id_No" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputAdmission Category">Admission Category </label>
-            <input type="text" class="form-control" id="inputAdmission Category" placeholder="Enter your Admission Category">
+            <input type="text" class="form-control" id="inputAdmission Category" placeholder="Enter your Admission Category" name="Admission_Category" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputAdmission Centre">Admission Centre </label>
-            <input type="text" class="form-control" id="inputAdmission Centre" placeholder="Enter your Admission Centre">
+            <input type="text" class="form-control" id="inputAdmission Centre" placeholder="Enter your Admission Centre" name="Admission_Centre" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputDomicile State">Domicile State </label>
-            <input type="text" class="form-control" id="inputDomicile State" placeholder="Enter your Domicile State">
+            <input type="text" class="form-control" id="inputDomicile State" placeholder="Enter your Domicile State" name="Domicile_State" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputDate Of Birth">Date Of Birth </label>
-            <input type="text" class="form-control" id="inputDate Of Birth" placeholder="Enter your Date Of Birth">
+            <input type="text" class="form-control" id="inputDate Of Birth" placeholder="Enter your Date Of Birth" name="Date_Of_Birth" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputAadhar Card No.">Aadhar Card No. </label>
-            <input type="text" class="form-control" id="inputAadhar Card No." placeholder="Enter your Aadhar Card No.">
+            <input type="text" class="form-control" id="inputAadhar Card No." placeholder="Enter your Aadhar Card No" name="Aadhar_Card_No" required>
           </div>
 
           <div class="form-group col-md-4">
-            <label for="inputFather's PAN Card No.">Father's PAN Card No. </label>
-            <input type="text" class="form-control" id="inputFather's PAN Card No." placeholder="Enter your Father's PAN Card No.">
+            <label for="inputFather's PAN Card No.">Fathers PAN Card No. </label>
+            <input type="text" class="form-control" id="inputFather's PAN Card No." placeholder="Enter your Father's PAN Card No" name="Father_PAN_Card_No" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputCast">Cast</label>
-            <input type="text" class="form-control" id="inputCast" placeholder="Enter your Cast">
+            <input type="text" class="form-control" id="inputCast" placeholder="Enter your Cast" name="Cast" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputReligion">Religion</label>
-            <input type="text" class="form-control" id="inputReligion" placeholder="Enter your Religion">
+            <input type="text" class="form-control" id="inputReligion" placeholder="Enter your Religion" name="Religion" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputGender">Gender</label>
-            <select id="inputGender" class="form-control">
+            <select id="inputGender" class="form-control" name="Gender" required>
               <option selected>Select</option>
               <option>Male</option>
               <option>Female</option>
@@ -264,7 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
           <div class="form-group col-md-4">
             <label for="inputPlace Of Birth">Place Of Birth</label>
-            <input type="text" class="form-control" id="inputPlace Of Birth" placeholder="Enter your Place Of Birth">
+            <input type="text" class="form-control" id="inputPlace Of Birth" placeholder="Enter your Place Of Birth" name="Place_Of_Birth" required>
           </div>
 
 
@@ -272,70 +339,70 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
           <div class="form-group col-md-4">
             <label for="inputStudent  Name<e">Student Name</label>
-            <input type="text" class="form-control" id="inputStudent  Name<" placeholder="Enter your Name">
+            <input type="text" class="form-control" id="inputStudent  Name<" placeholder="Enter your Name" name="Student_Name" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputStudent Mobile No">Student Mobile No</label>
-            <input type="text" class="form-control" id="inputStudent Mobile No" placeholder="Enter Your Mobile No">
+            <input type="text" class="form-control" id="inputStudent Mobile No" placeholder="Enter Your Mobile No" name="Student_Mobile_No" required>
           </div>
 
           <div class="form-group col-md-4">
-            <label for="inputStudent E-Mail Address">Student E-Mail Address</label>
-            <input type="text" class="form-control" id="inputStudent E-Mail Address" placeholder="Enter Your E-Mail Address">
+            <label for="inputStudent Email Address">Student Email Address</label>
+            <input type="text" class="form-control" id="inputStudent Email Address" placeholder="Enter Your Email Address" name="Email" required>
           </div>
 
 
           <div class="form-group col-md-4">
             <label for="inputStudent Father Name<e">Student Father Name</label>
-            <input type="text" class="form-control" id="inputStudent Father Name<" placeholder="Enter your Father Name">
+            <input type="text" class="form-control" id="inputStudent Father Name<" placeholder="Enter your Father Name" name="Student_Father_Name" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputFather Mobile No">Father Mobile No</label>
-            <input type="text" class="form-control" id="inputFather Mobile No" placeholder="Enter Your Father Mobile No">
+            <input type="text" class="form-control" id="inputFather Mobile No" placeholder="Enter Your Father Mobile No" name="Father_Mobile_No" required>
           </div>
 
           <div class="form-group col-md-4">
-            <label for="inputFather E-Mail Address">Father E-Mail Address</label>
-            <input type="text" class="form-control" id="inputFather E-Mail Address" placeholder="Enter Your Father E-Mail Address">
+            <label for="inputFather Email Address">Father Email Address</label>
+            <input type="text" class="form-control" id="inputFather Email Address" placeholder="Enter Your Father E-Mail Address" name="Father_Email_Address" required>
           </div>
 
 
           <div class="form-group col-md-4">
             <label for="inputStudent Mother Name<e">Student Mother Name</label>
-            <input type="text" class="form-control" id="inputStudent Mother Name<" placeholder="Enter your Mother Name">
+            <input type="text" class="form-control" id="inputStudent Mother Name<" placeholder="Enter your Mother Name" name="Student_Mother_Name" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputMother Mobile No">Mother Mobile No</label>
-            <input type="text" class="form-control" id="inputMother Mobile No" placeholder="Enter Your Mother Mobile No">
+            <input type="text" class="form-control" id="inputMother Mobile No" placeholder="Enter Your Mother Mobile No" name="Mother_Mobile_No" required>
           </div>
 
           <div class="form-group col-md-4">
-            <label for="inputMother E-Mail Address">Mother E-Mail Address</label>
-            <input type="text" class="form-control" id="inputMother E-Mail Address" placeholder="Enter Your Mother E-Mail Address">
+            <label for="inputMother Email Address">Mother Email Address</label>
+            <input type="text" class="form-control" id="inputMother Email Address" placeholder="Enter Your Mother E-Mail Address" name="Mother_Email_Address" required>
           </div>
 
 
           <div class="form-group col-md-4">
             <label for="inputStudent Local Guardian Name<e">Student Local Guardian Name</label>
-            <input type="text" class="form-control" id="inputStudent Local Guardian Name<" placeholder="Enter your Local Guardian Name">
+            <input type="text" class="form-control" id="inputStudent Local Guardian Name<" placeholder="Enter your Local Guardian Name" name="Student_Local_Guardian_Name" required>
           </div>
 
           <div class="form-group col-md-4">
             <label for="inputGuardian Mobile No">Guardian Mobile No</label>
-            <input type="text" class="form-control" id="inputGuardian Mobile No" placeholder="Enter Your Local Guardian Mobile No">
+            <input type="text" class="form-control" id="inputGuardian Mobile No" placeholder="Enter Your Local Guardian Mobile No" name="Guardian_Mobile_No" required>
           </div>
 
           <div class="form-group col-md-4">
-            <label for="inputGuardian E-Mail Address">Guardian E-Mail Address</label>
-            <input type="text" class="form-control" id="inputGuardian E-Mail Address" placeholder="Enter Your Local Guardian  E-Mail Address">
+            <label for="inputGuardian Email Address">Guardian Email Address</label>
+            <input type="text" class="form-control" id="inputGuardian Email Address" placeholder="Enter Your Local Guardian  E-Mail Address" name="Guardian_Email_Address" required>
           </div>
 
           <div class="form-group col-md-2">
             <label for="inputSelect Branch">Select Branch</label>
-            <select id="inputSelect Branch" class="form-control">
+            <select id="inputSelect Branch" class="form-control" name="Select_Branch" required>
               <option selected>Select</option>
               <option>Computer Engineering</option>
               <option>Electrical Engineering</option>
@@ -348,21 +415,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
           <form>
             <div class="form-group">
               <label for="exampleFormControlFile1">Upload your Photo</label>
-              <input type="file" class="form-control-file" id="Upload your PhotoFormControlFile1">
+              <input type="file" class="form-control-file" id="Upload your PhotoFormControlFile1" name="Upload_your_Photo">
             </div>
           </form>
 
           <form>
             <div class="form-group">
               <label for="exampleFormControlFile1">Upload 10th OR 12th Result</label>
-              <input type="file" class="form-control-file" id="Upload 10th OR 12th ResultFormControlFile1">
+              <input type="file" class="form-control-file" id="Upload 10th OR 12th ResultFormControlFile1" name="Upload_10th_OR_12th_Result">
             </div>
           </form>
 
           <form>
             <div class="form-group">
               <label for="exampleFormControlFile1">Upload Diploma Result</label>
-              <input type="file" class="form-control-file" id="Upload Diploma ResultControlFile1">
+              <input type="file" class="form-control-file" id="Upload Diploma ResultControlFile1" name="Upload_Diploma_Result">
             </div>
           </form>
 
